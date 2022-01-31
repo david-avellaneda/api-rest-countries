@@ -1,0 +1,23 @@
+{
+  "name": "api_rest_countries",
+  "version": "1.0.0",
+  "description": "API Rest de países",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/david-avellaneda/api-rest-countries.git"
+  },
+  "keywords": [
+    "API",
+    "Rest"
+  ],
+  "author": "David Santiago Avellaneda Montero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/david-avellaneda/api-rest-countries/issues"
+  },
+  "homepage": "https://github.com/david-avellaneda/api-rest-countries#readme"
+}
