@@ -7,7 +7,7 @@ export function countryInfo() {
         </svg>
         Back
     `;
-    const $countries = document.getElementById('country'),
+    const $country = document.getElementById('country'),
         QUERY = new URLSearchParams(window.location.search), // Con esto SE definen métodos útiles para trabajar con los parámetros de búsqueda de una URL, es decir nos permite leer los parámetros de una URL. Accedemos a toda la URL y obtenemos los valores que está buscando .html?
         PARAMS = QUERY.get('country'), // Obtenemos el valor que está buscando que está almacenado en la variable country
         API = 'https://restcountries.com/v3.1';
@@ -47,9 +47,9 @@ export function countryInfo() {
                         </div>
                     </div>
                     `;
-                    $countries.classList.add('add-country');
+                    $country.classList.add('add-country');
                     if (e.borders) { // Algunos países no tiene fronteras entonces se valida si tiene o no
-                        $countries.classList.add('add-borders');
+                        $country.classList.add('add-borders');
                         e.borders.forEach(async e => {
                             // console.log(e);
                             try {
@@ -61,26 +61,26 @@ export function countryInfo() {
                                 // console.log(borders);
                             } catch (error) {
                                 console.error(err);
-                                $countries.innerHTML = `<p style="font-size: 2rem;">An error occurred, sorry :(.</p>`;
+                                $country.innerHTML = `<p style="font-size: 2rem;">An error occurred, sorry :(.</p>`;
                             };
                         });
                     } else {
                         setTimeout(() => document.querySelector('.borders-countries').innerHTML = `<p>There are no borders</p>`, 500);
                     }
                 });
-                if ($countries.classList.contains('add-country')) {
-                    $countries.innerHTML = elements;
+                if ($country.classList.contains('add-country')) {
+                    $country.innerHTML = elements;
                 };
-                // $countries tenga esta clase significa que ya se pintó el HTML ya que esta clase se añade después de pintar el HTML
-                if ($countries.classList.contains('add-country') && $countries.classList.contains('add-borders')) {
+                // $country tenga esta clase significa que ya se pintó el HTML ya que esta clase se añade después de pintar el HTML
+                if ($country.classList.contains('add-country') && $country.classList.contains('add-borders')) {
                     // esperamos medio segundo para que pueda cargar todo el HTML y encuentre la clase .borders-countries
-                    setTimeout(() => document.querySelector('.borders-countries').innerHTML = borders, 500);
+                    setTimeout(() => document.querySelector('.borders-countries').innerHTML = borders, 1000);
                 };
             };
             countriesFound(ALL_COUNTRIES_JSON); // Aquí pintamos todos los países
         } catch (err) {
             console.error(err);
-            $countries.innerHTML = `<p style="font-size: 2rem;">An error occurred, sorry :(.</p>`;
+            $country.innerHTML = `<p style="font-size: 2rem;">An error occurred, sorry :(.</p>`;
         };
     })();
 };
