@@ -80,6 +80,7 @@ main {
 .filter-content form {
     width: 100%;
     max-width: 33rem;
+    height: 4.5rem;
     display: flex;
     border-radius: 0.6rem;
     background-color: var(--light-mode-elements);
