@@ -16,5 +16,5 @@ This website uses the following technologies:
 ## Download project
 `git clone https://github.com/david-avellaneda/api-rest-countries.git`
 
-##Site preview
+## Site preview
 [API Rest Countries](https://david-avellaneda.github.io/api-rest-countries/)
