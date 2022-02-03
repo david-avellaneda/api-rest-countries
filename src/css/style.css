@@ -1,0 +1,418 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+*:before, *:after {
+    box-sizing: border-box;
+}
+html {
+    font-size: 62.5%;
+}
+body {
+    --light-mode-elements: #ffffff;
+    --light-mode-background: #fafafa;
+    --light-mode-text: #111517;
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: var(--light-mode-background);
+    color: var(--light-mode-text);
+}
+body.dark-theme {
+    --light-mode-elements: #2b3945;
+    --light-mode-background: #202c37;
+    --light-mode-text: #ffffff;
+}
+header {
+    width: 100%;
+    height: 7rem;
+    background-color: var(--light-mode-elements);
+    box-shadow: 0px 1px 5px 0px rgb(0 0 0 / 20%);
+    margin: 0 auto;
+}
+.navbar {
+    width: 85%;
+    height: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+.navbar h1 {
+    font-size: 1.6rem;
+    font-weight: 900;
+}
+.navbar button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    background: none;
+    color: var(--light-mode-text);
+    outline: none;
+    border: none;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.navbar button svg {
+    width: 1.4rem;
+    fill: var(--light-mode-text);
+    margin-right: 0.5rem;
+}
+main {
+    width: 85%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+.filter-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 3.5rem 0;
+}
+.filter-content form {
+    width: 100%;
+    max-width: 33rem;
+    display: flex;
+    border-radius: 0.6rem;
+    background-color: var(--light-mode-elements);
+    box-shadow: 0px 0px 6px 1px rgb(0 0 0 / 10%);
+    padding: 1.5rem 2.5rem;
+    margin-bottom: 2.8rem;
+}
+.filter-content svg {
+    width: 1.5rem;
+    fill: var(--light-mode-text);
+    opacity: 0.5;
+}
+.filter-content input {
+    width: 100%;
+    color: var(--light-mode-text);
+    background: none;
+    border: none;
+    outline: none;
+    margin-left: 2rem;
+}
+.filter-content input::placeholder {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1.3rem;
+    color: var(--light-mode-text);
+    opacity: 0.5;
+}
+/* https://www.w3schools.com/howto/howto_custom_select.asp */
+/* The container must be positioned relative: */
+.custom-select {
+    width: 50%;
+    max-width: 20rem;
+    position: relative;
+}
+.custom-select select {
+    display: none; /*hide original SELECT element: */
+}
+.select-selected {
+    font-size: 1.2rem;
+    background-color: var(--light-mode-elements);
+    color: var(--light-mode-text);
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 6px 1px rgb(0 0 0 / 10%);
+}
+/* Style the arrow inside the select element: */
+.select-selected:after {
+    position: absolute;
+    content: "";
+    top: 20px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: var(--light-mode-text) transparent transparent transparent;
+}
+/* Point the arrow upwards when the select box is open (active): */
+.select-selected.select-arrow-active:after {
+    border-color: transparent transparent var(--light-mode-text) transparent;
+    top: 13px;
+}
+/* style the items (options), including the selected item: */
+.select-items div,.select-selected {
+    height: 4.8rem;
+    color: var(--light-mode-text);
+    padding: 14px 16px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+}
+/* Style items (options): */
+.select-items {
+    margin-top: 0.4rem;
+    position: absolute;
+    background-color: var(--light-mode-elements);
+    color: var(--light-mode-text);
+    border-radius: 0.6rem;
+    box-shadow: 0px 0px 6px 1px rgb(0 0 0 / 10%);
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+}
+/* Hide the items when the select box is closed: */
+.select-hide {
+    display: none;
+}
+.select-items div:hover, .same-as-selected {
+    border-radius: 0.6rem;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.cards-container {
+    width: 100%;
+    display: grid;
+    gap: 4.5rem;
+    margin-bottom: 5rem;
+}
+.no-results-found {
+    display: block;
+}
+.no-results-found p {
+    font-size: 3rem;
+    text-align: center;
+}
+.no-results-found span {
+    font-weight: 900;
+}
+.card {
+    width: 100%;
+    background-color: var(--light-mode-elements);
+    box-shadow: 0px 2px 6px 0px rgb(0 0 0 / 8%);
+    border-radius: 0.6rem;
+    transition: all 0.3s ease;
+}
+.card:hover {
+    transform: scale(1.1);
+}
+.card a {
+    color: var(--light-mode-text);
+}
+.card-image {
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0.6rem 0.6rem 0 0;
+}
+.card-content {
+    width: 100%;
+    padding: 2rem;
+}
+.card-content h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+}
+.card-content-text {
+    margin-bottom: 2rem;
+}
+.card-content p {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.card-content span {
+    font-weight: 500;
+}
+/* country.html */
+.back-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 4.5rem 0;
+}
+.back-content a {
+    font-size: 1.3rem;
+    color: var(--light-mode-text);
+    background-color: var(--light-mode-elements);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0.2rem;
+    box-shadow: 0px 0px 6px 1px rgb(0 0 0 / 15%);
+    padding: 0.7rem 2.5rem;
+    cursor: pointer;
+}
+.back-content svg {
+    width: 1.7rem;
+    fill: var(--light-mode-text);
+    margin-right: 1rem;
+}
+.card-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.card-container img {
+    width: 100%;
+    display: block;
+    margin-bottom: 3rem;
+}
+.country-content h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--light-mode-text);
+    margin-bottom: 2rem;
+}
+.country-text {
+    display: grid;
+}
+.country-text p {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+.country-text span {
+    font-weight: 500;
+}
+.country-text-one, .country-text-two {
+    margin-bottom: 2rem;
+}
+.borders-container {
+    margin-bottom: 4rem;
+}
+.borders-container h3 {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+}
+.borders-countries {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.borders-countries a {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--light-mode-text);
+    background-color: var(--light-mode-elements);
+    box-shadow: 0px 0px 4px 1px rgb(0 0 0 / 15%);
+    border-radius: 0.2rem;
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 2rem;
+    margin: 0rem 1rem 1rem 0;
+    transition: transform 0.2s ease;
+}
+.borders-countries a:hover {
+    transform: scale(1.2);
+}
+.borders-countries p {
+    font-size: 1.3rem;
+    color: var(--light-mode-text);
+}
+@media (min-width: 600px) {
+    .navbar h1 {
+        font-size: 1.8rem;
+    }
+    .navbar button {
+        font-size: 1.3rem;
+    }
+    .navbar button svg {
+        width: 1.6rem;
+    }
+    .filter-content {
+        flex-direction: row;
+    }
+    .filter-content form {
+        margin: 0;
+    }
+    .cards-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4.5rem;
+    }
+    /* country.html */
+    .card-container img {
+        width: 50%;
+        margin: 0 auto 3rem;
+    }
+    .country-content h2 {
+        font-size: 2.4rem;
+    }
+    .back-content a {
+        font-size: 1.4rem;
+    }
+    .country-text {
+        grid-template-columns: 1fr 1fr;
+    }
+    .country-text p {
+        font-size: 1.4rem;
+    }
+}
+@media (min-width: 1000px) {
+    .navbar h1 {
+        font-size: 2rem;
+    }
+    .navbar button {
+        font-size: 1.4rem;
+    }
+    .navbar button:hover {
+        transform: scale(1.1);
+    }
+    .navbar button svg {
+        width: 1.7rem;
+    }
+    main {
+        width: 85%;
+    }
+    .cards-container {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .filter-content form {
+        max-width: 40rem;
+    }
+    /* country.html */
+    .back-content a {
+        font-size: 1.6rem;
+    }
+    .card-container {
+        flex-direction: row;
+    }
+    .card-container img {
+        width: 50%;
+        height: 30rem;
+        object-fit: cover;
+        padding-right: 6rem;
+        margin: 0;
+    }
+    .country-content {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .country-content h2 {
+        font-size: 2.6rem;
+        margin-bottom: 3rem
+    }
+    .country-text-one {
+        padding-right: 0.5rem;
+    }
+    .borders-countries {
+        justify-content: flex-start;
+    }
+    .borders-countries a {
+        margin: 0 2rem 2rem 0;
+    }
+    @media (min-width: 1300px) {
+        .card-container img {
+            height: 35rem;
+        }
+    }
+    @media (min-width: 1500px) {
+        .card-container img {
+            height: 40rem;
+        }
+    }
+}
