@@ -23,6 +23,7 @@ export function countryInfo() {
                 let elements = '';
                 let borders = '';
                 data.forEach(e => {
+                    document.head.querySelector('title').innerText = `${e.name.common}`;
                     elements += `
                     <img src="${e.flags.svg}" alt="Flag ${e.name.official}" />
                     <div class="country-content">

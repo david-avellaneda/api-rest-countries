@@ -8,6 +8,11 @@ export function APICountries() {
                 ALL_COUNTRIES_JSON = await ALL_COUNTRIES_RESPONSE.json();
             // console.log(ALL_COUNTRIES_RESPONSE);
             // console.log(ALL_COUNTRIES_JSON);
+            if (ALL_COUNTRIES_JSON.url === `${API}/region/All`) {
+                const ALL_COUNTRIES_RESPONSE = await fetch(`${API}/all`),
+                    ALL_COUNTRIES_JSON = await ALL_COUNTRIES_RESPONSE.json();
+                countriesFound(ALL_COUNTRIES_JSON);
+            };
             const countriesFound = data => { // Esta función va a pintar los países que encuentre
                 let elements = '';
                 data.forEach(e => {
@@ -42,40 +47,57 @@ export function APICountries() {
             `);
             $form.addEventListener('submit', e => e.preventDefault());
             $form.addEventListener('keyup', async e => {
-                if (/^[A-Za-zÑñÁÉÍÓÚÜáéíóúü\s]+$/g.test($input.value) || e.keyCode === 8) { // Por si escribe o presiona teclas diferentes a letras
-                    const COUNTRIES_FOUND_RESPONSE = await fetch(`${API}/name/${$input.value.toLowerCase()}`), 
-                        COUNTRIES_FOUND_JSON = await COUNTRIES_FOUND_RESPONSE.json();
-                    // console.log(COUNTRIES_FOUND_RESPONSE);
-                    if (COUNTRIES_FOUND_RESPONSE.status === 404) {
-                        $countries.classList.add('no-results-found');
-                        $countries.innerHTML = `<p>I'm sorry I couldn't find the country named <span>"${$input.value}</span>".</p>`;
+                if (/^[A-Za-zÑñÁÉÍÓÚÜáéíóúü\s]+$/g.test($input.value)) { // Por si escribe o presiona teclas diferentes a letras
+                    if ($input.value.length > 0) {
+                        // console.log($input.value);
+                        const COUNTRIES_FOUND_RESPONSE = await fetch(`${API}/name/${$input.value.toLowerCase()}`), 
+                            COUNTRIES_FOUND_JSON = await COUNTRIES_FOUND_RESPONSE.json();
+                        // console.log(COUNTRIES_FOUND_RESPONSE);
+                        if (COUNTRIES_FOUND_RESPONSE.status === 404) {
+                            $countries.classList.add('no-results-found');
+                            $countries.innerHTML = `<p>I'm sorry I couldn't find the country named <span>"${$input.value}</span>".</p>`;
+                        } else {
+                            $countries.classList.remove('no-results-found');
+                        };
+                        if (e.key === 'Escape') {
+                            $countries.innerHTML = '';
+                            // Se coloca este setTimeOut para que primero limpie el HTML de $countries, despúes si invocamos a función countriesFound(ALL_COUNTRIES_JSON); que es la que pinta los países en $countries
+                            setTimeout(() => {
+                                $input.value = '';
+                                $countries.classList.remove('no-results-found');
+                                countriesFound(ALL_COUNTRIES_JSON);
+                            }, 100);
+                        };
+                        if (e.keyCode === 8 && $input.value === '') {
+                            $countries.innerHTML = '';
+                            // Se coloca este setTimeOut para que primero limpie el HTML de $countries, despúes si invocamos a función countriesFound(ALL_COUNTRIES_JSON); que es la que pinta los países en $countries
+                            setTimeout(() => {
+                                $countries.classList.remove('no-results-found');
+                                countriesFound(ALL_COUNTRIES_JSON);
+                            }, 300);
+                        }
+                        countriesFound(COUNTRIES_FOUND_JSON); // Solo se pintan los países que coincidan con lo que se escriba en el input
                     } else {
-                        $countries.classList.remove('no-results-found');
+                        countriesFound(ALL_COUNTRIES_JSON);
                     };
-                    if(e.key === 'Escape') {
-                        $countries.classList.remove('no-results-found');
-                        e.target.value = '';
-                    };
-                    if ($input.value === '') {
-                        $countries.classList.remove('no-results-found');
-                        countriesFound(ALL_COUNTRIES_JSON); // Esto no nos marcará error cuando busquemos en el input, cuando estemos borrando lo que buscamos quedará vacío, y la URL que está en la variable, entonces no retorna nada
-                    };
-                    // console.log(COUNTRIES_FOUND_JSON);
-                    countriesFound(COUNTRIES_FOUND_JSON); // Solo se pintan los países que coincidan con lo que se escriba en el input
                 } else {
+                    $countries.classList.remove('no-results-found'); // Cuando borra muy rápido lo que tiene el input le quita esta clase
                     $input.value = '';
+                    countriesFound(ALL_COUNTRIES_JSON);
                 };
             });
             /* CLASIFICAR PAÍSES POR CONTINENTE O CATEGORIA */
             document.querySelectorAll('.select-items div').forEach(option => {
-                option.addEventListener('click', async () => {
-                    if (option.textContent === 'All') countriesFound(ALL_COUNTRIES_JSON);
-                    if ($countries.classList.contains('no-results-found')) $countries.classList.remove('no-results-found');
-                    $input.value = '';
-                    const REGION_FOUND_RESPONSE = await fetch(`${API}/region/${option.textContent}`);
-                    if (REGION_FOUND_RESPONSE.url === 'https://restcountries.com/v3.1/region/All') return;
-                    const REGION_FOUND_JSON = await REGION_FOUND_RESPONSE.json();
-                    countriesFound(REGION_FOUND_JSON);
+                option.addEventListener('click', async e => {
+                    if (e.target.textContent == 'All') {
+                        countriesFound(ALL_COUNTRIES_JSON);
+                    } else {
+                        if ($countries.classList.contains('no-results-found')) $countries.classList.remove('no-results-found');
+                        $input.value = '';
+                        const REGION_FOUND_RESPONSE = await fetch(`${API}/region/${option.textContent}`),
+                            REGION_FOUND_JSON = await REGION_FOUND_RESPONSE.json();
+                        countriesFound(REGION_FOUND_JSON);
+                    };
                 });
             });
         } catch (err) {
