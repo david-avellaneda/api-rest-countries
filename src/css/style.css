@@ -282,6 +282,9 @@ main {
 .country-text-one, .country-text-two {
     margin-bottom: 2rem;
 }
+.country-text-two .languages span > * {
+    margin-right: 0.8rem;
+}   
 .borders-container {
     margin-bottom: 4rem;
 }

@@ -55,7 +55,7 @@ export function countryInfo() {
                     </div>
                     `;
                     // Languages
-                    Object.values(e.languages).forEach(language => languages += `<span>-${language}</span>`);
+                    Object.values(e.languages).forEach(language => languages += `<span>${language}</span>`);
                     setTimeout(() => document.querySelector('.languages span').innerHTML = languages, 500);
                     $country.classList.add('add-country');
                     if (e.borders) { // Algunos países no tiene fronteras entonces se valida si tiene o no
