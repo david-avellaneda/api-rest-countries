@@ -20,8 +20,14 @@ export function countryInfo() {
             // console.log(ALL_COUNTRIES_RESPONSE);
             // console.log(ALL_COUNTRIES_JSON);
             const countriesFound = data => { // Esta función va a pintar los países que encuentre
-                let elements = '';
-                let borders = '';
+                let elements = '',
+                    borders = '',
+                    languages = '';
+                function thousandsSeparator(n) {
+                    let parter = n.toString().split('.');
+                    parter[0] = parter[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    return parter.join('.');
+                };
                 data.forEach(e => {
                     document.head.querySelector('title').innerText = `${e.name.common}`;
                     elements += `
@@ -31,7 +37,7 @@ export function countryInfo() {
                         <div class="country-text">
                             <div class="country-text-one">
                                 <p>Native Name: <span>${e.name.official}</span></p>
-                                <p>Population: <span>${e.population}</span></p>
+                                <p>Population: <span>${thousandsSeparator(e.population)}</span></p>
                                 <p>Region: <span>${e.region}</span></p>
                                 <p>Sub Region: <span>${e.subregion}</span></p>
                                 <p>Capital: <span>${e.capital}</span></p>
@@ -39,7 +45,7 @@ export function countryInfo() {
                             <div class="country-text-two">
                                 <p>Top Level Domain: <span>${e.tld}</span></p>
                                 <p>Currencies: <span>${Object.values(e.currencies)[0].name}</span></p>
-                                <p>Languages: <span>${Object.values(e.languages)[0]}</span></p>
+                                <p class="languages">Languages: <span></span></p>
                             </div>
                         </div>
                         <div class="borders-container">
@@ -48,6 +54,9 @@ export function countryInfo() {
                         </div>
                     </div>
                     `;
+                    // Languages
+                    Object.values(e.languages).forEach(language => languages += `<span>-${language}</span>`);
+                    setTimeout(() => document.querySelector('.languages span').innerHTML = languages, 500);
                     $country.classList.add('add-country');
                     if (e.borders) { // Algunos países no tiene fronteras entonces se valida si tiene o no
                         $country.classList.add('add-borders');
@@ -67,7 +76,7 @@ export function countryInfo() {
                         });
                     } else {
                         setTimeout(() => document.querySelector('.borders-countries').innerHTML = `<p>There are no borders</p>`, 500);
-                    }
+                    };
                 });
                 if ($country.classList.contains('add-country')) {
                     $country.innerHTML = elements;

@@ -16,6 +16,11 @@ export function APICountries() {
             const countriesFound = data => { // Esta función va a pintar los países que encuentre
                 let elements = '';
                 data.forEach(e => {
+                    function thousandsSeparator(n) {
+                        let parter = n.toString().split('.');
+                        parter[0] = parter[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                        return parter.join('.');
+                    };
                     elements += `
                     <article class="card">
                         <a href="./country.html?country=${e.name.official}">
@@ -23,7 +28,7 @@ export function APICountries() {
                             <div class="card-content">
                                 <h2 class="ji">${e.name.common}</h2>
                                 <div class="card-content-text">
-                                    <p>Population: <span>${e.population}</span></p>
+                                    <p>Population: <span>${thousandsSeparator(e.population)}</span></p>
                                     <p>Region: <span>${e.region}</span></p>
                                     <p>Capital: <span>${e.capital}</span></p>
                                 </div>
